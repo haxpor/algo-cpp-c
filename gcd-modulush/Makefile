@@ -1,0 +1,18 @@
+# Improved makefile that has control over header file dependency
+# if header file is changed, this makefile will be able to catch the update.
+#
+# It has all control over every steps except list of object files (not general yet)
+# from compile to linking. (No implicit use of CFLAGS by make system.
+
+PROGRAM=gcd-modulush
+CC=gcc
+CFLAGS=-I.
+DEPS=gcd.h
+
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+$(PROGRAM): $(PROGRAM).o
+	$(CC) -o $(PROGRAM) $(PROGRAM).o
+clean:
+	rm -rf $(PROGRAM).out
+	rm -rf *.o

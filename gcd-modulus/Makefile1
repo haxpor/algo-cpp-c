@@ -1,0 +1,11 @@
+# Automatic compile c source files but lacks of control over header dependency
+# if header file is changed, this makefile won't catch it
+
+PROGRAM=gcd-modulus
+CC=gcc
+
+$(PROGRAM): $(PROGRAM).o
+	$(CC) -o $(PROGRAM) $(PROGRAM).o
+clean:
+	rm -rf $(PROGRAM).out
+	rm -rf *.o
