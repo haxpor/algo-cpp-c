@@ -109,6 +109,8 @@ void binaryNotEfficient(int x)
 		currItem = currItem->prev;
 	}
 
+	printf("%s\n", resultBinaryString);
+
 	// free all dynamically allocated struct
 	currItem = bitem;
 	while (currItem != NULL)
@@ -120,8 +122,46 @@ void binaryNotEfficient(int x)
 	}
 }
 
+// more efficient function to convert input decimal to binary then print it
+// use pre-allocated enough size of array as backend data structure to hold binary representation
+void binary(int x)
+{
+	// allocate number of characters equal to number of bits that could represent maximum number in int
+	// this is reverse of result binary string
+	char resultRevBinaryString[sizeof(int) * 8];
+
+	int h, r;
+	int strCount = 0;
+
+	do
+	{
+		h = (int)floor(x / 2);
+		r = x % 2;
+		if (h == 0)
+		{
+			// we're done
+			resultRevBinaryString[strCount++] = r + '0';
+			break;
+		}
+		else
+		{
+			resultRevBinaryString[strCount++] = r + '0';
+			x = h;
+		}
+	} while (1);
+
+	// print result in reverse
+	while (strCount >= 0)
+	{
+		printf("%c", resultRevBinaryString[strCount--]);
+	}
+
+	printf("\n");
+}
+
 int main(int argc, char* args[])
 {
 	binaryNotEfficient(450);
+	binary(450);
 	return 0;
 }
