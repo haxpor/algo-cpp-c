@@ -94,7 +94,7 @@ void binaryNotEfficient(int x)
 	} while(1);
 
 	// define enough lengh of string to hold result
-	char resultBinaryString[(const int)(resultCharCount + 1)];
+	char resultBinaryString[resultCharCount + 1];
 	memset(resultBinaryString, '\0', sizeof(resultBinaryString));
 	int i = 0;
 	
