@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct Node;
 typedef struct Node Node;
@@ -48,6 +49,42 @@ long wr_strtol(const char *str, int* error)
 
 	// failed case
 	return -1;
+}
+
+/*
+ * Efficient version of josephus.
+ */
+void josephusEfficient(int n, int m, int* resultSeqArray)
+{
+	int i;
+	Node *t, *x;
+
+	t = malloc(sizeof(Node));
+	t->key = 1;
+	x = t;
+
+	for (i=2; i <= n; i++)
+	{
+		t->next = malloc(sizeof(Node));
+		t = t->next;
+		t->key = i;
+	}
+	t->next = x;
+	int j=0;
+
+	while (t != t->next)
+	{
+		for (i=1; i<m; i++)
+			t = t->next;
+
+		x = t->next;
+		*(resultSeqArray + j++) = x->key;
+		t->next = x->next;
+		free(x);
+	}
+	*(resultSeqArray + j) = t->key;
+
+	free(t);
 }
 
 /*
@@ -121,6 +158,18 @@ void josephus(int n, int m, int* resultSeq)
 	}
 }
 
+void printAll(int *resultSeqArray, int size)
+{
+	if (resultSeqArray == NULL)
+		return;
+
+	for (int i=0; i<size; i++)
+	{
+		printf("%d ", *(resultSeqArray + i));
+	}
+	printf("\n");
+}
+
 /*
  * Accept parameter via command line as ./josephus <N> <M>
  */
@@ -153,16 +202,22 @@ int main(int argc, char* args[])
 		return -1;
 	}
 
-	// allocate enough space for result sequence
+	// allocate enough space to hold result
 	int resultSeq[n];
-	josephus(n, m, &resultSeq[0]);
 
-	// print out result sequence
-	for (int i=0; i<n; i++)
-	{
-		printf("%d ", resultSeq[i]);
-	}
+	// josephus (self implementation)
+	josephus(n, m, &resultSeq[0]);
+	printf("josephus (not efficient)\n");
+	printAll(&resultSeq[0], n);
 	printf("\n");
+	
+	// zero out result array as we will reuse it
+	memset(resultSeq, 0, sizeof(resultSeq));
+
+	// josephus efficient implementation
+	josephusEfficient(n, m, &resultSeq[0]);
+	printf("josephus (efficient)\n");
+	printAll(&resultSeq[0], n);
 
 	return 0;
 }
