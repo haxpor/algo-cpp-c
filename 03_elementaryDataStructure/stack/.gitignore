@@ -1,3 +1,4 @@
 *.swp
 *.o
 stack_m
+./build
