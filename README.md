@@ -1,6 +1,6 @@
-# Algorithm in C++ Study But In C
+# Algorithm in C++ Code Study
 
-This repo contains my study from the book Algorithm in C++ by Robert Sedgewick but instead of C++, it's C.
+This repo contains my code study from the book Algorithm in C++ by Robert Sedgewick.
 
 # License
 
