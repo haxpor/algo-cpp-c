@@ -1,6 +1,6 @@
 #include <iostream>
 #include <sstream>
-#include "Stack.h"
+#include "StackLinkedList.h"
 
 /** compile-time logging functions for convenient **/
 template<typename Arg>
@@ -33,7 +33,7 @@ struct Data {
  */
 std::string ConvertToPostfix(const std::string& infix) {
     std::stringstream ss;
-    Stack<char> ts;
+    StackLinkedList<char> ts;
 
     for (auto it = infix.begin(); it != infix.end(); ++it) {
         char c = *it;
@@ -69,7 +69,7 @@ std::string ConvertToPostfix(const std::string& infix) {
  * Compute result from value from postfix expression.
  */
 int ComputePostfix(const std::string& postfix) {
-    Stack<int> ts;
+    StackLinkedList<int> ts;
 
     for (const char c : postfix) {
         if (c >= '0' && c <= '9') {
@@ -91,7 +91,7 @@ int ComputePostfix(const std::string& postfix) {
 
 int main() {
     /** Testing section **/
-    Stack<int> s;
+    StackLinkedList<int> s;
     s.Push(1);
     s.Push(2);
 
@@ -100,7 +100,7 @@ int main() {
     LOG(s.Pop());
     LOG2(std::boolalpha, s.IsEmpty());
 
-    Stack<Data> s2;
+    StackLinkedList<Data> s2;
     s2.Push(Data {100});
     s2.Push(Data {200});
 
